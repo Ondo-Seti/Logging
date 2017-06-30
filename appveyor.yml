@@ -5,7 +5,7 @@ build_script:
 - ps: ./Build.ps1
 test: off
 artifacts:
-- path: artifacts
+- path: artifacts\
   type: NuGetPackage
 deploy:
 - provider: NuGet
