@@ -1,25 +1,18 @@
 Write-Host "build: Build all started `n" -ForegroundColor Green
-
 Push-Location $PSScriptRoot
 
 if(Test-Path  .\artifacts) {
-
     Write-Host "build: Cleaning .\artifacts `n" -ForegroundColor Green	
     Remove-Item .\artifacts -Force -Recurse
 }
 
-if (Get-Command git -ErrorAction SilentlyContinue) 
-{
- #default git local branch value is dev
- $gitLocalBranch = "dev"
- #get git local branch value
- $gitLocalBranch = $(git symbolic-ref --short -q HEAD)
-}
+#get git local branch value
+$gitLocalBranch = $(git symbolic-ref --short -q HEAD)
 
-$branch = @{ $true = $env:BUILD_SOURCEBRANCHNAME; $false = $gitLocalBranch}[$env:BUILD_SOURCEBRANCHNAME -ne $NULL];
-#$buildNumber = @{ $true = $env:BUILD_SOURCEBRANCHNAME; $false = $(git rev-list --all --count)}[$env:BUILD_BUILDNUMBER -ne $NULL];
-$revision = @{ $true = "{0:00000}" -f [convert]::ToInt32("0" + $env:BUILD_BUILDNUMBER, 10); $false = "local{0:00000}" -f [convert]::ToInt32("0" + $(git rev-list --all --count), 10)}[$env:BUILD_BUILDNUMBER -ne $NULL];
-$suffix = @{ $true = ""; $false = "$($branch.Substring(0, [math]::Min(10,$branch.Length)))-$revision"}[$branch -eq "master" -and $revision -ne "local"]
+$branch = @{ $true = $env:APPVEYOR_REPO_BRANCH; $false = $gitLocalBranch}[$env:APPVEYOR_REPO_BRANCH -ne $NULL];
+$revision = @{ $true = "{0:00000}" -f [convert]::ToInt32("0" + $env:APPVEYOR_BUILD_NUMBER, 10); 
+               $false = "local{0:00000}" -f [convert]::ToInt32("0" + $(git rev-list --all --count), 10)}[$env:APPVEYOR_BUILD_NUMBER -ne $NULL];
+$suffix = @{ $true = ""; $false = "$($branch.Substring(0, [math]::Min(10, $branch.Length)))-$revision"}[$branch -eq "master" -and $revision -ne "local"]
 $commitHash = $(git rev-parse --short HEAD)
 $buildSuffix = @{ $true = "$($suffix)-$($commitHash)"; $false = "$($branch)-$($commitHash)" }[$suffix -ne ""]
 
@@ -28,7 +21,7 @@ Write-Host "build: Build version suffix is $buildSuffix `n" -ForegroundColor Gre
 
 & dotnet restore --no-cache  /p:VersionSuffix=$suffix
 
-foreach ($src in ls src/*) {
+foreach ($src in Get-ChildItem src/*) {
     Push-Location $src
 
 	Write-Host "`n build: Packaging project in $src `n" -ForegroundColor Green	
