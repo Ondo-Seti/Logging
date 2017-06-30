@@ -5,8 +5,7 @@ build_script:
 - ps: ./Build.ps1
 test: off
 artifacts:
-- path: artifacts\
-  type: NuGetPackage
+- path: artifacts\Ondo.*.nupkg
 deploy:
 - provider: NuGet
   api_key:
