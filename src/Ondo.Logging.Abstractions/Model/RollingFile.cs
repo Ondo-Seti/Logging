@@ -1,7 +1,6 @@
 ﻿namespace Ondo.Logging.Abstractions
 {
-    public class RollingFile : CommonOptions
-    {
+    public class RollingFile : CommonOptions    {
 
         public RollingFile() { this.Include = Defaults.INCLUDE_FILE; }
 
