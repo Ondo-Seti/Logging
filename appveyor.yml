@@ -1,0 +1,15 @@
+version: '{build}'
+image: Visual Studio 2017
+configuration: Release
+build_script:
+- ps: ./Build.ps1
+test: off
+artifacts:
+- path: artifacts\Ondo.*.nupkg
+deploy:
+- provider: NuGet
+  api_key:
+    secure: Mscm91OKhiWGDxxt927IHnDYk5tk6JV+5M85Mg54v/Ci2thBwpmtoeX95AaddBEs
+  skip_symbols: true
+  on:
+    branch: /^(master|dev)$/

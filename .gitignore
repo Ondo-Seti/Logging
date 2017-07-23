@@ -286,3 +286,10 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+#Logging projet specific
+artifacts/
+appsettings.Development.json
+appsettings.Test.json
+# Logs folder to ignore
+Logs/
