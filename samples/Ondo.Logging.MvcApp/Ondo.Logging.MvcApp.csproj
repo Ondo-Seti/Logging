@@ -16,7 +16,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ondo.Logging.Mvc\Ondo.Logging.Mvc.csproj" />
+    <ProjectReference Include="..\..\src\Ondo.Logging.AspNetCore\Ondo.Logging.AspNetCore.csproj" />
     <ProjectReference Include="..\..\src\Ondo.Logging.SerilogAdapter\Ondo.Logging.SerilogAdapter.csproj" />
     <ProjectReference Include="..\..\src\Ondo.Logging\Ondo.Logging.csproj" />
   </ItemGroup>

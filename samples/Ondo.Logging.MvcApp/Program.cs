@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Ondo.Logging.Adapters;
-using Microsoft.Extensions.Configuration;
-using Ondo.Logging.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Ondo.Logging.Abstractions;
 
 namespace Ondo.Logging.Mvc
 {
